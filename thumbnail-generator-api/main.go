@@ -32,6 +32,11 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	}
 	defer file.Close() // Close the file when we finish
 
+	var options string = r.FormValue("options")
+	if options == "" {
+		options = "400x300,160x120,120x120"
+	}
+
 	var name []string = strings.Split(handler.Filename, ".")
 	var ext string = name[len(name)-1]
 
@@ -44,7 +49,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "File should be less than 5MB")
 		return
 	}
-	var sizes []string = strings.Split(os.Getenv("SIZES"), ",")
+	var sizes []string = strings.Split(options, ",")
 	var resp string = resizeImage(ext, sizes, name, &file, r.Host)
 
 	if resp == "" {
@@ -80,7 +85,7 @@ func resizeImage(ext string, sizes []string, name []string, file *multipart.File
 			return ""
 		}
 		newImg := resize.Resize(uint(width), uint(height), img, resize.Lanczos3)
-		var path string = os.Getenv("IMAGES") + "/" + name[0] + "_" + dim[0] + "x" + dim[1] + "." + ext
+		var path string = os.Getenv("IMAGES_FOLDER") + "/" + name[0] + "_" + dim[0] + "x" + dim[1] + "." + ext
 		out, errFile := os.Create(path)
 		if errFile != nil {
 			return ""
@@ -107,7 +112,7 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", homeLink).Methods("GET")
 	router.HandleFunc(os.Getenv("ENDPOINT"), uploadFile).Methods("POST")
-	router.PathPrefix("/" + os.Getenv("IMAGES") + "/").Handler(http.StripPrefix("/"+os.Getenv("IMAGES")+"/", http.FileServer(http.Dir("./"+os.Getenv("IMAGES")+"/"))))
+	router.PathPrefix("/" + os.Getenv("IMAGES_FOLDER") + "/").Handler(http.StripPrefix("/"+os.Getenv("IMAGES_FOLDER")+"/", http.FileServer(http.Dir("./"+os.Getenv("IMAGES_FOLDER")+"/"))))
 
 	headers := handlers.AllowedHeaders([]string{"Access-Control-Allow-Origin", "Content-Type"})
 	origins := handlers.AllowedOrigins([]string{"*"})
