@@ -1,0 +1,65 @@
+.App {
+  text-align: center;
+  background-color: #000;
+  min-height: 100vh;
+}
+
+.App-header {
+  background-color: #000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title {
+  color: #ffc901;
+  margin-right: 5px;
+  font-size: x-large;
+}
+
+.subtitle {
+  color: #fff;
+  margin-left: 5px;
+  font-size: x-large;
+}
+
+.body-div {
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+}
+
+.file-div {
+  width: 80vw;
+  height: 40vh;
+  border-color: #ffc901;
+  border-width: 2px;
+  border-style: dashed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.drag-file {
+  width: 80vw;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-file {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
