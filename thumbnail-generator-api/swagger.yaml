@@ -1,0 +1,91 @@
+basePath: /
+consumes:
+- multipart/form-data
+definitions:
+  ErrorResponse:
+    description: response body for errors responses
+    properties:
+      code:
+        format: int64
+        type: integer
+        x-go-name: Code
+      message:
+        type: string
+        x-go-name: Message
+    type: object
+    x-go-package: _/home/cscovino/proof-of-concept/thumbnail-generator-api/handlr
+  File:
+    title: image/png, image/jpg
+    type: object
+    x-go-package: mime/multipart
+  ImagesResp:
+    description: ImagesResp object for images
+    properties:
+      name:
+        type: string
+        x-go-name: Name
+      path:
+        type: string
+        x-go-name: Path
+    type: object
+    x-go-package: _/home/cscovino/proof-of-concept/thumbnail-generator-api/handlr
+  OkResponse:
+    description: response body for Ok response
+    properties:
+      code:
+        format: int64
+        type: integer
+        x-go-name: Code
+      imagesResp:
+        items:
+          $ref: '#/definitions/ImagesResp'
+        type: array
+        x-go-name: Data
+    type: object
+    x-go-package: _/home/cscovino/proof-of-concept/thumbnail-generator-api/handlr
+info:
+  description: Documentation for Thumbnail Generator API
+  title: Thumbnail Generator API
+  version: 1.0.0
+paths:
+  /upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Process file and generates Thumbnails
+      operationId: upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  $ref: '#/definitions/File'
+                sizes:
+                  type: string
+                interpolation:
+                  type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/okResponse'
+        "500":
+          $ref: '#/responses/errorResponse'
+      schemes:
+      - http
+produces:
+- application/json
+responses:
+  errorResponse:
+    description: Error response
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+  okResponse:
+    description: Ok response
+    schema:
+      $ref: '#/definitions/OkResponse'
+schemes:
+- http
+swagger: "2.0"
