@@ -15,7 +15,7 @@ First of all you will need have Docker installed, if you do not have it you can 
 Once you have Docker installed you only need run two commands (inside de folder `proof-of-concept/thumbnail-generator-api`), one for build the docker image and the other to run the image:
 ```
 docker build -t $IMAGE_NAME .
-docker run $IMAGE_NAME -p $EXTERNAL_PORT:$INTERNAL_PORT
+docker run -p $EXTERNAL_PORT:$INTERNAL_PORT $IMAGE_NAME
 ```
 Where `$IMAGE_NAME` is the name that you want to call de image, the `$EXTERNAL_PORT` is the port that you can access from external device and `$INTERNAL_PORT` is the port defined in the Dockerfile. Finally you can run for example: 
 ```

@@ -51,7 +51,7 @@ func ResizeImage(ext string, sizes []string, interpolation resize.InterpolationF
 		newImg := resize.Resize(uint(width), uint(height), img, interpolation)
 		// Generates the path to save the image resized
 		var fileName string = name[0] + "_" + dim[0] + "x" + dim[1] + "." + ext
-		var path string = os.Getenv("IMAGES_FOLDER") + "/" + fileName
+		var path string = "/images/" + fileName
 		// Create the file
 		out, errFile := os.Create(path)
 		if errFile != nil {
@@ -68,7 +68,7 @@ func ResizeImage(ext string, sizes []string, interpolation resize.InterpolationF
 		out.Close()
 		var image ImagesResp
 		image.Name = fileName
-		image.Path = host + "/" + path
+		image.Path = host + path
 		resp.Data = append(resp.Data, image)
 	}
 	// return OkResponse
