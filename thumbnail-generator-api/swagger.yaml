@@ -3,44 +3,63 @@ consumes:
 - multipart/form-data
 definitions:
   ErrorResponse:
-    description: response body for errors responses
+    description: Server Error
     properties:
       code:
         format: int64
         type: integer
+        description: Error Code
         x-go-name: Code
       message:
         type: string
+        description: Description of error
         x-go-name: Message
     type: object
     x-go-package: _/home/cscovino/proof-of-concept/thumbnail-generator-api/handlr
-  File:
-    title: image/png, image/jpg
-    type: object
-    x-go-package: mime/multipart
+    example:
+      - code: 400
+        message: Couldn't Get the File
+      - code: 400
+        message: File extension not supported, only works with png and jpg!
+      - code: 400
+        message: It's a big file!, it should be less than 5MB
+      - code: 500
+        message: Resize Image Failed!
   ImagesResp:
     description: ImagesResp object for images
     properties:
       name:
         type: string
+        description: File name
         x-go-name: Name
       path:
         type: string
+        description: Image's url
         x-go-name: Path
     type: object
     x-go-package: _/home/cscovino/proof-of-concept/thumbnail-generator-api/handlr
   OkResponse:
-    description: response body for Ok response
+    description: Success
     properties:
       code:
         format: int64
         type: integer
+        description: Success code
         x-go-name: Code
+        example: 200
       imagesResp:
         items:
           $ref: '#/definitions/ImagesResp'
         type: array
+        description: Array of Images
         x-go-name: Data
+        example:
+          - name: go_400x300.png
+            path: localhost:8081/images/go_400x300.png
+          - name: go_160x120.png
+            path: localhost:8081/images/go_160x120.png
+          - name: go_120x120.png
+            path: localhost:8081/images/go_120x120.png
     type: object
     x-go-package: _/home/cscovino/proof-of-concept/thumbnail-generator-api/handlr
 info:
@@ -54,24 +73,28 @@ paths:
       - multipart/form-data
       description: Process file and generates Thumbnails
       operationId: upload
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                file:
-                  $ref: '#/definitions/File'
-                sizes:
-                  type: string
-                interpolation:
-                  type: string
+      parameters:
+      - name: file
+        in: formData
+        description: Image to be resized
+        required: true
+        type: image/png, image/jpg
+      - name: sizes
+        in: formData
+        description: Sizes of the Thumbnails
+        type: string
+        default: 400x300,160x120,120x120
+      - name: interpolation
+        in: formData
+        description: Interpolation function to be used
+        type: string
+        default: Lanczos3
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/okResponse'
-        "500":
+        "400":
           $ref: '#/responses/errorResponse'
       schemes:
       - http
@@ -79,11 +102,11 @@ produces:
 - application/json
 responses:
   errorResponse:
-    description: Error response
+    description: Error
     schema:
       $ref: '#/definitions/ErrorResponse'
   okResponse:
-    description: Ok response
+    description: Success
     schema:
       $ref: '#/definitions/OkResponse'
 schemes:

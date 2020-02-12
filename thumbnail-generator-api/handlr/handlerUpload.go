@@ -34,7 +34,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	file, handler, err := r.FormFile("file")
 	if err != nil {
 		var resp = ErrorResponse{
-			Code:    500,
+			Code:    400,
 			Message: "Couldn't Get the File",
 		}
 		json.NewEncoder(w).Encode(resp)
@@ -77,7 +77,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	// Compare and only allow extensions: png and jpg
 	if strings.ToLower(name[len(name)-1]) != "png" && strings.ToLower(name[len(name)-1]) != "jpg" && strings.ToLower(name[len(name)-1]) != "jpeg" {
 		var resp = ErrorResponse{
-			Code:    500,
+			Code:    400,
 			Message: "File extension not supported, only works with png and jpg!",
 		}
 		json.NewEncoder(w).Encode(resp)
@@ -87,7 +87,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	// Compare and only allow files which size is less than 5MB
 	if handler.Size > (5 << 20) {
 		var resp = ErrorResponse{
-			Code:    500,
+			Code:    400,
 			Message: "It's a big file!, it should be less than 5MB",
 		}
 		json.NewEncoder(w).Encode(resp)
@@ -109,4 +109,5 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	}
 	// return the response of POST petition
 	json.NewEncoder(w).Encode(resp)
+	return
 }
