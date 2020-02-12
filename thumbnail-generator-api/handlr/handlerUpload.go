@@ -2,6 +2,7 @@ package handlr
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -33,6 +34,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	// Retrieve the file from form data
 	file, handler, err := r.FormFile("file")
 	if err != nil {
+		fmt.Println("ERROR FILE: ", err)
 		var resp = ErrorResponse{
 			Code:    400,
 			Message: "Couldn't Get the File",
@@ -76,6 +78,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 
 	// Compare and only allow extensions: png and jpg
 	if strings.ToLower(name[len(name)-1]) != "png" && strings.ToLower(name[len(name)-1]) != "jpg" && strings.ToLower(name[len(name)-1]) != "jpeg" {
+		fmt.Println("ERROR EXTENSION FILE")
 		var resp = ErrorResponse{
 			Code:    400,
 			Message: "File extension not supported, only works with png and jpg!",
@@ -86,6 +89,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 
 	// Compare and only allow files which size is less than 5MB
 	if handler.Size > (5 << 20) {
+		fmt.Println("ERROR SIZE FILE")
 		var resp = ErrorResponse{
 			Code:    400,
 			Message: "It's a big file!, it should be less than 5MB",
@@ -100,6 +104,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	var resp OkResponse = ResizeImage(ext, sizes, interpolation, name, &file, r.Host)
 	// Check for error in resize function
 	if resp.Code == 500 {
+		fmt.Println("ERROR RESIZE FILE")
 		var resp = ErrorResponse{
 			Code:    500,
 			Message: "Resize Image Failed!",

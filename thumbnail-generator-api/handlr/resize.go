@@ -1,6 +1,7 @@
 package handlr
 
 import (
+	"fmt"
 	"image"
 	"image/jpeg"
 	"image/png"
@@ -27,6 +28,7 @@ func ResizeImage(ext string, sizes []string, interpolation resize.InterpolationF
 	}
 	// Check for errors
 	if errDecode != nil {
+		fmt.Println("ERROR DECODE: ", errDecode)
 		resp.Code = 500
 		return resp
 	}
@@ -39,11 +41,13 @@ func ResizeImage(ext string, sizes []string, interpolation resize.InterpolationF
 		// Parse string dimensions to int
 		width, errW := strconv.Atoi(dim[0])
 		if errW != nil {
+			fmt.Println("ERROR ATOI: ", errW)
 			resp.Code = 500
 			return resp
 		}
 		height, errH := strconv.Atoi(dim[1])
 		if errH != nil {
+			fmt.Println("ERROR ATOI: ", errH)
 			resp.Code = 500
 			return resp
 		}
@@ -51,10 +55,11 @@ func ResizeImage(ext string, sizes []string, interpolation resize.InterpolationF
 		newImg := resize.Resize(uint(width), uint(height), img, interpolation)
 		// Generates the path to save the image resized
 		var fileName string = name[0] + "_" + dim[0] + "x" + dim[1] + "." + ext
-		var path string = "/images/" + fileName
+		var path string = "images/" + fileName
 		// Create the file
-		out, errFile := os.Create(path)
+		out, errFile := os.Create("./" + path)
 		if errFile != nil {
+			fmt.Println("ERROR CREATE: ", errFile)
 			resp.Code = 500
 			return resp
 		}
@@ -68,7 +73,7 @@ func ResizeImage(ext string, sizes []string, interpolation resize.InterpolationF
 		out.Close()
 		var image ImagesResp
 		image.Name = fileName
-		image.Path = host + path
+		image.Path = host + "/" + path
 		resp.Data = append(resp.Data, image)
 	}
 	// return OkResponse
