@@ -19,7 +19,7 @@ docker run -p $EXTERNAL_PORT:$INTERNAL_PORT $IMAGE_NAME
 ```
 Where `$IMAGE_NAME` is the name that you want to call de image, the `$EXTERNAL_PORT` is the port that you can access from external device and `$INTERNAL_PORT` is the port defined in the Dockerfile. Finally you can run for example: 
 ```
-docker run thumbnail-generator -p 8081:8081
+docker run -p 8081:8081 thumbnail-generator
 ```
 
 ## Running the Api with Go
