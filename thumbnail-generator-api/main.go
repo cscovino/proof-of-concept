@@ -20,7 +20,7 @@ import (
 	"mime/multipart"
 	"net/http"
 
-	"./handlr"
+	"github.com/cscovino/proof-of-concept/thumbnail-generator-api/handlr"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
