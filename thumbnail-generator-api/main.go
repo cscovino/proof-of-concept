@@ -19,6 +19,7 @@ import (
 	"log"
 	"mime/multipart"
 	"net/http"
+	"os"
 
 	"github.com/cscovino/proof-of-concept/thumbnail-generator-api/handlr"
 	"github.com/go-openapi/runtime/middleware"
@@ -59,6 +60,8 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fmt.Println("Server Start")
+
+	os.MkdirAll("./images", os.ModePerm)
 
 	router := mux.NewRouter().StrictSlash(true)
 	// Welcome Endpoint
