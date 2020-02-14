@@ -11,13 +11,19 @@ function App(props) {
   const { images, isLoading, error } = props;
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
-    setFile(acceptedFiles[0]);
-    setTextUpload("File: " + acceptedFiles[0].name);
+    let reader = new FileReader();
+    reader.onload = ev => document.getElementById("preview").src = ev.target.result
+    reader.readAsDataURL(acceptedFiles[0])
+    setData({
+      textUpload: "File: " + acceptedFiles[0].name,
+      file: acceptedFiles[0]
+    });
   }, []);
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
-  const [textUpload, setTextUpload] = useState('Click or Drop your file');
-  const [file, setFile] = useState(null);
-  console.log(file)
+  const [data, setData] = useState({
+    textUpload: 'Click or Drop your file',
+    file: null
+  });
 
   const sendImage = () => {
     
@@ -34,14 +40,19 @@ function App(props) {
         <div className="file-div">
           <div {...getRootProps()}>
             <input {...getInputProps()} />
-            <label htmlFor="contained-button-file">
-              <div className="drag-file">
-                <CloudUploadOutlinedIcon style={{color: '#ffc901', fontSize: '15vh'}} />
-                <div className="text-file">
-                  {textUpload}
+            {
+              data.file === null ?
+              <label htmlFor="contained-button-file">
+                <div className="drag-file">
+                  <CloudUploadOutlinedIcon style={{color: '#ffc901', fontSize: '15vh'}} />
+                  <div className="text-file">
+                    {data.textUpload}
+                  </div>
                 </div>
-              </div>
-            </label>
+              </label>
+              :
+              <img src="#" id="preview" />
+            }
           </div>
         </div>
         <Button
