@@ -1,19 +1,21 @@
-import { put, call, takeEvery, select } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 
-import { setImages, setError } from '../actions';
 import { LOAD, LOAD_SUCCESS, LOAD_FAILED } from '../constants';
-import { fetchImages } from '../api';
+import { resizeImage } from '../api';
 
 export function* handleImagesLoad() {
     try {
-        const page = yield select(getPage);
-        const images = yield call(fetchImages, page);
-        yield put(setImages(images));
+        const response = yield call(resizeImage);
+        if(response.code !== 200){
+            yield put({ type: LOAD_FAILED, payload: response.message });
+        } else {
+            yield put({ type: LOAD_SUCCESS, payload: response.imagesResp });
+        }
     } catch (error) {
-        yield put(setError(error.toString()));
+        yield put({ type: LOAD_FAILED, payload: error });
     }
 }
 
 export default function* watchImagesLoad() {
-    yield takeEvery(IMAGES.LOAD, handleImagesLoad);
+    yield takeLatest(LOAD, handleImagesLoad);
 }
