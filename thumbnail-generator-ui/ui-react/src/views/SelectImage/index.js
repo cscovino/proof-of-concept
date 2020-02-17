@@ -4,8 +4,12 @@ import PanoramaIcon from '@material-ui/icons/Panorama';
 import Button from '@material-ui/core/Button';
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import { useDropzone } from 'react-dropzone';
-import { loadImages } from './actions';
-import './App.css';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { loadImages } from '../../actions';
+import './index.css';
 
 function App(props) {
   const { images, isLoading, error } = props;
@@ -22,12 +26,17 @@ function App(props) {
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
   const [data, setData] = useState({
     textUpload: 'Click or Drop your file',
-    file: null
+    file: null,
+    interpolation: 'Lanczos3'
   });
 
   const sendImage = () => {
-    
+    loadImages({file: data.file, sizes: "", interpolation: ""})
   }
+
+  const handleChange = event => {
+    setData({interpolation: event.target.value});
+  };
 
   return (
     <div className="App">
@@ -51,21 +60,39 @@ function App(props) {
                 </div>
               </label>
               :
-              <img src="#" id="preview" />
+              <img src="#" className="drag-file" id="preview" height="100%" />
             }
           </div>
         </div>
-        <Button
-          variant="contained"
-          onClick={sendImage}
-          style={{
-            backgroundColor: '#ffc901', 
-            width: '80vw',
-            marginTop: '5vw'
-          }}
-        >
-          DO IT!
-        </Button>
+        <div>
+          <FormControl className="form-control">
+            <InputLabel id="demo-controlled-open-select-label">Interpolation</InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select"
+              value={data.interpolation}
+              onChange={handleChange}
+            >
+              <MenuItem value="NearestNeighbor">NearestNeighbor</MenuItem>
+              <MenuItem value="Bilinear">Bilinear</MenuItem>
+              <MenuItem value="Bicubic">Bicubic</MenuItem>
+              <MenuItem value="MitchellNetravali">MitchellNetravali</MenuItem>
+              <MenuItem value="Lanczos2">Lanczos2</MenuItem>
+              <MenuItem value="Lanczos3">Lanczos3</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            variant="contained"
+            onClick={sendImage}
+            style={{
+              backgroundColor: '#ffc901', 
+              width: '60vw',
+              marginTop: '5vw'
+            }}
+          >
+            DO IT!
+          </Button>
+        </div>
       </div>
     </div>
   );

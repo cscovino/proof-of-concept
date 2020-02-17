@@ -3,9 +3,9 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { LOAD, LOAD_SUCCESS, LOAD_FAILED } from '../constants';
 import { resizeImage } from '../api';
 
-export function* handleImagesLoad() {
+export function* handleImagesLoad(action) {
     try {
-        const response = yield call(resizeImage);
+        const response = yield call(resizeImage, action.payload);
         if(response.code !== 200){
             yield put({ type: LOAD_FAILED, payload: response.message });
         } else {

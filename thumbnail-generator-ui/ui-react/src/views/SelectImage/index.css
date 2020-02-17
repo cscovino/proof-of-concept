@@ -36,8 +36,8 @@
 }
 
 .file-div {
-  width: 80vw;
-  height: 40vh;
+  width: 60vw;
+  height: 60vh;
   border-color: #ffc901;
   border-width: 2px;
   border-style: dashed;
@@ -48,12 +48,13 @@
 }
 
 .drag-file {
-  width: 80vw;
-  height: 40vh;
+  width: 60vw;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .text-file {
@@ -62,4 +63,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.form-control {
+  color: #fff;
 }
