@@ -29,7 +29,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 
 	// ParseMultipartForm parses a request body as multipart/form-data
 	// File max 5MB
-	r.ParseMultipartForm(5 << 20)
+	// r.ParseMultipartForm(5 << 20)
 
 	// Retrieve the file from form data
 	file, handler, err := r.FormFile("file")
@@ -44,32 +44,6 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	}
 	// Close the file when we finish
 	defer file.Close()
-
-	// Sizes (options) defined by the user on the UI
-	// If no sizes (options) were passed then take the 3 formats by default
-	var options string = r.FormValue("options")
-	if options == "" {
-		options = "400x300,160x120,120x120"
-	}
-	// Interpolation method defined by the user on the UI
-	// If no sizes interpolation method were passed then take the default
-	var interp string = r.FormValue("interpolation")
-	var interpolation resize.InterpolationFunction
-	switch interp {
-	case "Bicubic":
-		interpolation = resize.Bicubic
-	case "Bilinear":
-		interpolation = resize.Bilinear
-	case "MitchellNetravali":
-		interpolation = resize.MitchellNetravali
-	case "NearestNeighbor":
-		interpolation = resize.NearestNeighbor
-	case "Lanczos2":
-		interpolation = resize.Lanczos2
-	case "Lanczos3":
-	default:
-		interpolation = resize.Lanczos3
-	}
 
 	// Take all the sizes to be resized
 	var name []string = strings.Split(handler.Filename, ".")
@@ -96,6 +70,32 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 		}
 		json.NewEncoder(w).Encode(resp)
 		return
+	}
+
+	// Sizes (options) defined by the user on the UI
+	// If no sizes (options) were passed then take the 3 formats by default
+	var options string = r.FormValue("options")
+	if options == "" {
+		options = "400x300,160x120,120x120"
+	}
+	// Interpolation method defined by the user on the UI
+	// If no sizes interpolation method were passed then take the default
+	var interp string = r.FormValue("interpolation")
+	var interpolation resize.InterpolationFunction
+	switch interp {
+	case "Bicubic":
+		interpolation = resize.Bicubic
+	case "Bilinear":
+		interpolation = resize.Bilinear
+	case "MitchellNetravali":
+		interpolation = resize.MitchellNetravali
+	case "NearestNeighbor":
+		interpolation = resize.NearestNeighbor
+	case "Lanczos2":
+		interpolation = resize.Lanczos2
+	case "Lanczos3":
+	default:
+		interpolation = resize.Lanczos3
 	}
 
 	// Generate an array of the sizes
