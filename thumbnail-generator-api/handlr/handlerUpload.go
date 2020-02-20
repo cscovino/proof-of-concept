@@ -78,6 +78,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	if options == "" {
 		options = "400x300,160x120,120x120"
 	}
+	fmt.Println("SIZES: ", options)
 	// Interpolation method defined by the user on the UI
 	// If no sizes interpolation method were passed then take the default
 	var interp string = r.FormValue("interpolation")
@@ -97,6 +98,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	default:
 		interpolation = resize.Lanczos3
 	}
+	fmt.Println("INTERPOLATION: ", interpolation)
 
 	// Generate an array of the sizes
 	var sizes []string = strings.Split(options, ",")

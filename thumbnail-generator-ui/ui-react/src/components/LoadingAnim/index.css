@@ -1,0 +1,13 @@
+@media (min-width: 600px) {
+    .animation {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+@media (min-width: 800px) {
+    .animation {
+        width: 45%;
+        height: 45%;
+    }
+}

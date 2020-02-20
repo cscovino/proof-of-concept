@@ -1,17 +1,22 @@
-import { LOAD, LOAD_SUCCESS, LOAD_FAILED } from "../constants";
+import { LOAD, LOAD_SUCCESS, LOAD_FAILED, RESET } from "../constants";
 
-const loadImages = () => ({
+const loadImages = (payload) => ({
     type: LOAD,
+    payload: payload
 });
 
-const setImages = images => ({
+const setImages = payload => ({
     type: LOAD_SUCCESS,
-    images,
+    payload: payload
 });
 
-const setError = error => ({
+const setError = payload => ({
     type: LOAD_FAILED,
-    error,
+    payload: payload
 });
 
-export { loadImages, setImages, setError };
+const resetImages = () => ({
+    type: RESET
+});
+
+export { loadImages, setImages, setError, resetImages };

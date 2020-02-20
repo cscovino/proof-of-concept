@@ -1,4 +1,4 @@
-import { LOAD, LOAD_SUCCESS, LOAD_FAILED } from '../constants';
+import { LOAD, LOAD_SUCCESS, LOAD_FAILED, RESET } from '../constants';
 
 const INITIAL_STATE = {
     images: [],
@@ -10,7 +10,7 @@ const imagesReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LOAD:
             return {
-                ...state,
+                ...INITIAL_STATE,
                 isLoading: true
             }
         case LOAD_SUCCESS:
@@ -24,7 +24,9 @@ const imagesReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 isLoading: false,
                 error: action.payload
-            } 
+            }
+        case RESET: 
+            return INITIAL_STATE
         default:
             return state
     }
