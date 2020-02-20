@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    build: ./thumbnail-generator-ui/ui-react
+    build: ./thumbnail-generator-ui
     ports:
       - "8080:8080"
   backend:
