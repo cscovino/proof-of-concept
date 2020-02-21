@@ -14,9 +14,9 @@ First of all you will need have Docker installed, if you do not have it you can 
 
 Once you have Docker installed you only need run two commands (inside de folder `proof-of-concept/thumbnail-generator-api`), one for build the docker image and the other to run the image:
 ```
-export IMAGE_NAME=api-go
-export EXTERNAL_PORT=8081
-export INTERNAL_PORT=8081
+export IMAGE_NAME=api-go && \
+export EXTERNAL_PORT=8081 && \
+export INTERNAL_PORT=8081 && \
 
 docker build -t $IMAGE_NAME .
 docker run -p $EXTERNAL_PORT:$INTERNAL_PORT --env API_PORT=$INTERNAL_PORT $IMAGE_NAME
@@ -37,6 +37,9 @@ go get github.com/cscovino/proof-of-concept/thumbnail-generator-api/handlr
 ```
 Then have to run the command (inside de folder `proof-of-concept/thumbnail-generator-api`) below to compile the code and generate the executable:
 ```
+export EXEC_NAME=api-go && \
+export API_PORT=8081 && \
+
 go build -a -tags static_all -installsuffix cgo -o $EXEC_NAME .
 ```
 Where `$EXEC_NAME` is the name that you want to call de executable that wil run the server, for example: `thumbnail-generator`.

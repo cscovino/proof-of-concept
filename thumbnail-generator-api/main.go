@@ -59,7 +59,7 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("[SERVER START] PORT " + os.Getenv("REACT_APP_API_PORT"))
+	fmt.Println("[SERVER START] PORT " + os.Getenv("API_PORT"))
 
 	os.MkdirAll("./images", os.ModePerm)
 

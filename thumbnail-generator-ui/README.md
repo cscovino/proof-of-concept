@@ -15,14 +15,14 @@ First of all you will need have Docker installed, if you do not have it you can 
 
 Once you have Docker installed you only need run two commands (inside de folder `proof-of-concept/thumbnail-generator-ui`), one for build the docker image and the other to run the image:
 ```
-export IMAGE_NAME=ui-react
-export REACT_APP_API=192.168.43.211
-export REACT_APP_API_PORT=8085
-export REACT_APP_UI_PORT=8084
-export EXTERNAL_PORT=$REACT_APP_UI_PORT
-export INTERNAL_PORT=$REACT_APP_UI_PORT
+export IMAGE_NAME=ui-react && \
+export REACT_APP_API=http://192.168.0.114 && \
+export REACT_APP_API_PORT=8081 && \
+export REACT_APP_UI_PORT=8080 && \
+export EXTERNAL_PORT=$REACT_APP_UI_PORT && \
+export INTERNAL_PORT=$REACT_APP_UI_PORT && \
 
-docker build --build-arg REACT_APP_API=$REACT_APP_API --build-arg REACT_APP_API_PORT=$ --build-arg REACT_APP_UI_PORT=$REACT_APP_UI_PORT -t $IMAGE_NAME .
+docker build --build-arg REACT_APP_API=$REACT_APP_API --build-arg REACT_APP_API_PORT=$REACT_APP_API_PORT --build-arg REACT_APP_UI_PORT=$REACT_APP_UI_PORT -t $IMAGE_NAME .
 docker run -p $EXTERNAL_PORT:$INTERNAL_PORT $IMAGE_NAME
 ```
 Where `$IMAGE_NAME` is the name that you want to call de image, the `$EXTERNAL_PORT` is the port that you can access from external device and `$INTERNAL_PORT` is the port defined in the Dockerfile.
@@ -38,9 +38,9 @@ yarn install
 ```
 Then have to run the commands below to build the react project:
 ```
-export REACT_APP_API=192.168.43.211
-export REACT_APP_API_PORT=8085
-export REACT_APP_UI_PORT=8084
+export REACT_APP_API=http://192.168.0.114 && \
+export REACT_APP_API_PORT=8081 && \
+export REACT_APP_UI_PORT=8080 && \
 
 yarn build
 ```
@@ -49,4 +49,4 @@ Finally you have to run the next command:
 ```
 serve -s build -l $REACT_APP_UI_PORT
 ```
-Now you acces to your react app from `localhost:8084`, in this case.
+Now you acces to your react app from `localhost:8080` or `$IP_ADDR:8080`, where `$IP_ADDR` is the ip address where is running the react app.

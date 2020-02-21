@@ -16,11 +16,11 @@ docker-compose up
 ```
 Then the application will be running on the ports that you have had configured in the `.env` file:
 ```
-REACT_APP_API=http://192.168.43.211
-REACT_APP_API_PORT=8085
-REACT_APP_UI_PORT=8084
+REACT_APP_API=http://192.168.0.114
+REACT_APP_API_PORT=8081
+REACT_APP_UI_PORT=8080
 
-API_PORT=8085
+API_PORT=8081
 ```
 Where `REACT_APP_PI` is the host of the API, `REACT_APP_API_PORT=API_PORT` is the port that will be running the API and `REACT_APP_UI_PORT` is the port that will be hosting the react app.
 

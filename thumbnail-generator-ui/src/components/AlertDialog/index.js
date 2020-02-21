@@ -36,7 +36,7 @@ function AlertDialog(props) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    <PhoneInTalkIcon />
+                    <PhoneInTalkIcon style={{marginRight: 5}} />
                     OOPS! Houston we have a problem.
                 </DialogTitle>
                 <DialogContent>
