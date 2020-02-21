@@ -6,7 +6,7 @@ const resizeImage = async (payload) => {
     formData.append('sizes', payload.sizes);
     formData.append('interpolation', payload.interpolation);
     const response = await fetch(
-        "http://" + process.env.REACT_APP_API + ":" + process.env.REACT_APP_API_PORT + "/upload", 
+        process.env.REACT_APP_API + ":" + process.env.REACT_APP_API_PORT + "/upload", 
         {
             headers: {
                 "Access-Control-Allow-Origin": "*"
