@@ -8,6 +8,7 @@ To run this UI you must have install either of this packages:
 - [Docker](https://www.docker.com/)
 - [Nodejs](https://nodejs.org/)
 - [Yarn](https://yarnpkg.com/)
+- [NPM](https://www.npmjs.com/)
 
 ## Running the UI with Docker
 
@@ -29,11 +30,11 @@ Where `$IMAGE_NAME` is the name that you want to call de image, the `$EXTERNAL_P
 
 ## Running the UI with Node and Yarn
 
-First of all you will need have Node and Yarn installed, if you do not have it you can search it [here](https://nodejs.org/) and [here](https://classic.yarnpkg.com/en/docs/install). 
+First of all you will need have Node (come with npm) and Yarn installed, if you do not have it you can search it [here](https://nodejs.org/) and [here](https://classic.yarnpkg.com/en/docs/install). 
 
 Once you have Node and Yarn installed you need run the following command (inside de folder `proof-of-concept/thumbnail-generator-ui`) to install the required packages:
 ```
-yarn global add serve
+npm install -g serve
 yarn install
 ```
 Then have to run the commands below to build the react project:

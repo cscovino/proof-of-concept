@@ -6471,7 +6471,7 @@ lottie-react-web@^2.1.4:
     lottie-api bodymovin/lottie-api#master
     lottie-web "^5.2.1"
 
-lottie-web@^5.2.1, lottie-web@^5.6.4:
+lottie-web@^5.2.1:
   version "5.6.4"
   resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.6.4.tgz#8520f9e7e8daa9e0ab8343c628c3f470800088a4"
   integrity sha512-eU+21Wo/RSi4i260S7fDUxfhNJ9PhfzUJMVQpip0yZd19oJ18jrNCoSQKVUzjC2TzOjqumlLZXR636ezKoWNQg==
