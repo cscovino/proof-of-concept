@@ -33,7 +33,7 @@ First of all you will need have Node and Yarn installed, if you do not have it y
 
 Once you have Node and Yarn installed you need run the following command (inside de folder `proof-of-concept/thumbnail-generator-ui`) to install the required packages:
 ```
-yarn add -g serve
+yarn global add serve
 yarn install
 ```
 Then have to run the commands below to build the react project:
