@@ -1,23 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import { useDropzone } from 'react-dropzone';
 import './index.css';
 
 function InputImage(props) {
-    const onDrop = useCallback(acceptedFiles => {
-        console.log(acceptedFiles[0]);
-        let reader = new FileReader();
-        reader.onload = ev => document.getElementById("preview").src = ev.target.result
-        reader.readAsDataURL(acceptedFiles[0])
-        setData({
-            ...data,
-            textUpload: "File: " + acceptedFiles[0].name,
-            file: acceptedFiles[0]
-        });
-    }, []);
-    const { getRootProps, getInputProps } = useDropzone({onDrop});
     const [data, setData] = useState({
         textUpload: 'Click or Drop your file',
         file: null,
@@ -28,6 +15,19 @@ function InputImage(props) {
     const sendImage = () => {
         props.loadImages(data)
     }
+
+    const onDrop = useCallback(acceptedFiles => {
+        let reader = new FileReader();
+        reader.onload = ev => document.getElementById("preview").src = ev.target.result
+        reader.readAsDataURL(acceptedFiles[0])
+        setData({
+            ...data,
+            textUpload: "File: " + acceptedFiles[0].name,
+            file: acceptedFiles[0]
+        });
+    },[]);
+
+    const { getRootProps, getInputProps } = useDropzone({onDrop});
 
     return (
         <div className="input-div">

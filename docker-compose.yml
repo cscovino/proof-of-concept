@@ -1,10 +1,17 @@
 version: '3'
 services:
   web:
-    build: ./thumbnail-generator-ui
+    build: 
+      context: ./thumbnail-generator-ui
+      args: 
+        - REACT_APP_API=${REACT_APP_API}
+        - REACT_APP_API_PORT=${REACT_APP_API_PORT}
+        - REACT_APP_UI_PORT=${REACT_APP_UI_PORT}
     ports:
-      - "8080:8080"
+      - ${REACT_APP_UI_PORT}:${REACT_APP_UI_PORT}
   backend:
     build: ./thumbnail-generator-api
+    environment: 
+      API_PORT: ${API_PORT}
     ports: 
-      - "8081:8081"
+      - ${API_PORT}:${API_PORT}

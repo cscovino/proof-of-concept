@@ -1,12 +1,11 @@
 # Sinapsis Technical PoC
+A Web App for a thumbnail generator.
 
-## Intro:
+## Requirements to run the Web App
 
-Inside each folder you'll find a README file containing the instructions for the missions.
-Each mission is structured as follows:
-  - There is a goal (AKA: *what* you're building)
-  - There are a set of requirements (AKA: constraints on *how* you build it)
-  - There are a set grading guidelines. This is how we'll evaluate the PoC
+To run this UI you must have install either of this packages:
+- [Docker](https://www.docker.com/)
+- [Nodejs](https://nodejs.org/)
 
 ## Instructions:
 

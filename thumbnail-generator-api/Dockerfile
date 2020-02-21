@@ -18,6 +18,6 @@ FROM scratch
 COPY --from=build /server/main .
 COPY --from=build /server/swagger.yaml .
 
-EXPOSE 8081
+EXPOSE ${API_PORT}
 
 CMD ["/main"]

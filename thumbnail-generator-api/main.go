@@ -59,7 +59,7 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("Server Start")
+	fmt.Println("[SERVER START] PORT " + os.Getenv("REACT_APP_API_PORT"))
 
 	os.MkdirAll("./images", os.ModePerm)
 
@@ -84,5 +84,5 @@ func main() {
 	origins := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"GET", "POST"})
 
-	log.Fatal(http.ListenAndServe(":8081", handlers.CORS(origins, headers, methods)(router)))
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("API_PORT"), handlers.CORS(origins, headers, methods)(router)))
 }
