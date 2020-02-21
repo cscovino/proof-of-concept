@@ -3,20 +3,25 @@ A Web App for a thumbnail generator.
 
 ## Requirements to run the Web App
 
-To run this UI you must have install either of this packages:
+To run this Web App you must have install these packages:
 - [Docker](https://www.docker.com/)
-- [Nodejs](https://nodejs.org/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-## Instructions:
+## Running the Thumbnail Generator:
 
-1. Fork this repo!
-2. Pick one mission from the root folder and solve it
-3. Complete as many missions as you want!
-4. Send us your repo url to `jobs at sinapsis.co`
+Once you have installed docker and docker compose you only have to run two commands:
+```
+docker-compose build
+docker-compose up
+```
+Then the application will be running on the ports that you have had configured in the `.env` file:
+```
+REACT_APP_API=http://192.168.43.211
+REACT_APP_API_PORT=8085
+REACT_APP_UI_PORT=8084
 
-## What's next?
+API_PORT=8085
+```
+Where `REACT_APP_PI` is the host of the API, `REACT_APP_API_PORT=API_PORT` is the port that will be running the API and `REACT_APP_UI_PORT` is the port that will be hosting the react app.
 
-We'll contact you after reviewing your submission. Be ready for a show and tell describing your solution.
-
-# **Have Fun! :-)**
-
+Finally you can access the App navigating to the ip address of your server (the computer that is running the solution) with the ui port configured in the `.env` file.
