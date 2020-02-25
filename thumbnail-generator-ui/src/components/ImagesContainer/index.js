@@ -26,7 +26,7 @@ function ImageContainer(props) {
             </Button>
             {images.map(tile => (
                 <GridListTile key={tile.path}>
-                    <a href={`http://${tile.path}`}><img src={`http://${tile.path}`} alt={tile.name} className="image-tag" /></a>
+                    <a href={`http://${tile.path}`} target="_blank"><img src={`http://${tile.path}`} alt={tile.name} className="image-tag" /></a>
                     <GridListTileBar title={tile.name} />
                 </GridListTile>
             ))}
